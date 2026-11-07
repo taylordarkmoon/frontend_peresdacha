@@ -1,0 +1,340 @@
+// ===== Переменные =====
+$bg: #f4f1ea;
+$panel: #ffffff;
+$border: #e3ddd0;
+$text: #23302a;
+$muted: #6b7a70;
+$primary: #2f6b3a;
+$accent: #e8a33d;
+$danger: #c0392b;
+
+// ===== Миксины =====
+@mixin card($radius: 14px) {
+  border-radius: $radius;
+  border: 1px solid $border;
+  background: $panel;
+}
+
+@mixin container($w: 1100px) {
+  max-width: $w;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: $bg;
+  color: $text;
+}
+
+// ===== Шапка и подвал =====
+.header {
+  background: $primary;
+  color: #fff;
+
+  &__inner {
+    @include container();
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__right {
+    opacity: 0.8;
+    font-size: 13px;
+  }
+}
+
+.brand {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.footer {
+  border-top: 1px solid $border;
+
+  &__inner {
+    @include container();
+    padding: 14px 16px;
+    color: $muted;
+    font-size: 13px;
+  }
+}
+
+.main {
+  flex: 1;
+  display: flex;
+}
+
+.container {
+  @include container();
+  padding: 20px 16px;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+
+  .title {
+    margin: 0;
+    font-size: 24px;
+  }
+}
+
+// ===== Фильтр по категориям =====
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.chip {
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid $border;
+  background: $panel;
+  color: $text;
+  cursor: pointer;
+
+  &--active {
+    background: $primary;
+    border-color: $primary;
+    color: #fff;
+  }
+}
+
+// ===== Кнопки =====
+.btn {
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid $border;
+  background: $panel;
+  color: $text;
+  cursor: pointer;
+
+  &:hover {
+    border-color: $muted;
+  }
+
+  &--primary {
+    background: $primary;
+    border-color: $primary;
+    color: #fff;
+  }
+
+  &--danger {
+    color: $danger;
+    border-color: rgba($danger, 0.4);
+  }
+}
+
+.empty {
+  padding: 18px;
+  border-radius: 12px;
+  border: 1px dashed $border;
+  color: $muted;
+
+  &--error {
+    color: $danger;
+    border-color: rgba($danger, 0.4);
+  }
+}
+
+// ===== Сетка карточек =====
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.plantCard {
+  @include card();
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  &__image {
+    position: relative;
+    aspect-ratio: 4 / 3;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+  }
+
+  &__category {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: $accent;
+    color: #fff;
+    font-size: 12px;
+  }
+
+  &__body {
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+  }
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  &__name {
+    margin: 0;
+    font-size: 17px;
+    color: $primary;
+  }
+
+  &__rating {
+    white-space: nowrap;
+    color: $accent;
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  &__description {
+    margin: 0;
+    color: $muted;
+    font-size: 13px;
+    line-height: 1.45;
+    flex: 1;
+  }
+
+  &__info {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  &__price {
+    font-size: 19px;
+    font-weight: 700;
+  }
+
+  &__stock {
+    font-size: 12px;
+    color: $muted;
+
+    &--empty {
+      color: $danger;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    gap: 8px;
+
+    .btn {
+      flex: 1;
+    }
+  }
+}
+
+// ===== Модальное окно =====
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.modal {
+  width: 100%;
+  max-width: 480px;
+  border-radius: 16px;
+  background: $panel;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+
+  &__header {
+    padding: 12px 14px;
+    border-bottom: 1px solid $border;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__title {
+    font-weight: 700;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 4px;
+  }
+}
+
+.iconBtn {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  border: 1px solid $border;
+  background: transparent;
+  cursor: pointer;
+}
+
+.form {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &__row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  color: $muted;
+}
+
+.input {
+  width: 100%;
+  min-width: 0; // чтобы поля помещались в три колонки и не вылезали за окно
+  padding: 9px 11px;
+  border-radius: 10px;
+  border: 1px solid $border;
+  background: #fff;
+  color: $text;
+  font: inherit;
+  outline: none;
+
+  &:focus {
+    border-color: $primary;
+  }
+
+  &--textarea {
+    min-height: 70px;
+    resize: vertical;
+  }
+}
